@@ -428,10 +428,10 @@ changes </a>
 <div id="strongRMarkdownfilestronguncommittedchanges"
 class="panel-collapse collapse">
 <div class="panel-body">
-<p>The R Markdown is untracked by Git. To know which version of the R
-Markdown file created these results, you’ll want to first commit it to
-the Git repo. If you’re still working on the analysis, you can ignore
-this warning. When you’re finished, you can run
+<p>The R Markdown file has unstaged changes. To know which version of
+the R Markdown file created these results, you’ll want to first commit
+it to the Git repo. If you’re still working on the analysis, you can
+ignore this warning. When you’re finished, you can run
 <code>wflow_publish</code> to commit the R Markdown file and build the
 HTML.</p>
 </div>
@@ -524,15 +524,15 @@ project makes it easier to run your code on other machines.</p>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomeweinefastGLMCAexperimentsv3tree7513fb0a180b37f9af3e383478b8751ca964b439targetblank7513fb0a">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomeweinefastGLMCAexperimentsv3tree30744c578469ccda1938df6e0d2936633cb6db22targetblank30744c5a">
 <span class="glyphicon glyphicon-ok text-success"
 aria-hidden="true"></span> <strong>Repository version:</strong>
-<a href="https://github.com/eweine/fastGLMCA_experiments_v3/tree/7513fb0a180b37f9af3e383478b8751ca964b439" target="_blank">7513fb0</a>
+<a href="https://github.com/eweine/fastGLMCA_experiments_v3/tree/30744c578469ccda1938df6e0d2936633cb6db22" target="_blank">30744c5</a>
 </a>
 </p>
 </div>
 <div
-id="strongRepositoryversionstrongahrefhttpsgithubcomeweinefastGLMCAexperimentsv3tree7513fb0a180b37f9af3e383478b8751ca964b439targetblank7513fb0a"
+id="strongRepositoryversionstrongahrefhttpsgithubcomeweinefastGLMCAexperimentsv3tree30744c578469ccda1938df6e0d2936633cb6db22targetblank30744c5a"
 class="panel-collapse collapse">
 <div class="panel-body">
 <p>
@@ -542,7 +542,7 @@ reproducibility.
 </p>
 <p>
 The results in this page were generated with repository version
-<a href="https://github.com/eweine/fastGLMCA_experiments_v3/tree/7513fb0a180b37f9af3e383478b8751ca964b439" target="_blank">7513fb0</a>.
+<a href="https://github.com/eweine/fastGLMCA_experiments_v3/tree/30744c578469ccda1938df6e0d2936633cb6db22" target="_blank">30744c5</a>.
 See the <em>Past versions</em> tab to see a history of the changes made
 to the R Markdown and HTML files.
 </p>
@@ -557,7 +557,6 @@ were generated:
 </p>
 <pre><code>
 Untracked files:
-    Untracked:  analysis/droplets.Rmd
     Untracked:  data/droplets_fastGLMPCA_fit_28core.rds
     Untracked:  data/droplets_fastGLMPCA_fit_warmup_1core.rds
     Untracked:  data/droplets_glmpca_fisher_fit_log_lik_long.rds
@@ -565,6 +564,9 @@ Untracked files:
     Untracked:  data/pbmc_68k_fastGLMPCA_fit_no_warmup.rds
     Untracked:  data/pbmc_68k_fastGLMPCA_fit_no_warmup_1core.rds
     Untracked:  data/pbmc_glmpca_sgd_fit_log_long.rds
+
+Unstaged changes:
+    Modified:   analysis/droplets.Rmd
 
 </code></pre>
 <p>
@@ -579,10 +581,74 @@ have uncommitted changes.
 <hr>
 </div>
 <div id="versions" class="tab-pane fade">
+
 <p>
-There are no past versions. Publish this analysis with
-<code>wflow_publish()</code> to start tracking its development.
+These are the previous versions of the repository in which changes were
+made to the R Markdown (<code>analysis/droplets.Rmd</code>) and HTML
+(<code>docs/droplets.html</code>) files. If you’ve configured a remote
+Git repository (see <code>?wflow_git_remote</code>), click on the
+hyperlinks in the table below to view the files as they were in that
+past version.
 </p>
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+File
+</th>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+<th>
+Message
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/eweine/fastGLMCA_experiments_v3/blob/30744c578469ccda1938df6e0d2936633cb6db22/analysis/droplets.Rmd" target="_blank">30744c5</a>
+</td>
+<td>
+Eric Weine
+</td>
+<td>
+2023-04-10
+</td>
+<td>
+added first analysis
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/eweine/fastGLMCA_experiments_v3/30744c578469ccda1938df6e0d2936633cb6db22/docs/droplets.html" target="_blank">30744c5</a>
+</td>
+<td>
+Eric Weine
+</td>
+<td>
+2023-04-10
+</td>
+<td>
+added first analysis
+</td>
+</tr>
+</tbody>
+</table>
+</div>
 <hr>
 </div>
 </div>
@@ -722,16 +788,97 @@ ggplot(data = droplet_time_df) +
   xlab(&quot;Time (m)&quot;) +
   ggtitle(&quot;Trachea Droplet Dataset, K = 10&quot;)</code></pre>
 <p><img src="figure/droplets.Rmd/unnamed-chunk-6-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-6-1">
+Past versions of unnamed-chunk-6-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-6-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/eweine/fastGLMCA_experiments_v3/blob/30744c578469ccda1938df6e0d2936633cb6db22/docs/figure/droplets.Rmd/unnamed-chunk-6-1.png" target="_blank">30744c5</a>
+</td>
+<td>
+Eric Weine
+</td>
+<td>
+2023-04-10
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <p>The 28 core version of <code>fastGLMPCA</code> converges very
 quickly. The fisher scoring algorithm of <code>glmpca</code> converges
 second fastest, but to a sub-optimal solution. The reason for this is
 that <code>glmpca</code> increases a penalty when it detects numerical
 instability in fisher scoring, which results in bias in the final
 answer. <code>fastGLMPCA</code> converges to the optimal solution,
-though is obvioously much slower than the same algorithm run on 28
+though is obviously much slower than the same algorithm run on 28
 scores. Finally, <code>glmpca</code> with sgd optimized via avagrad is
 actually the slowest to converge, though also appears to reach the
 optimal solution.</p>
+<p>Below is a table of the final log-likelihoods:</p>
+<pre class="r"><code>algorithm &lt;- c(
+  &quot;glmpca-fisher&quot;, &quot;glmpca-sgd&quot;, &quot;fastGLMPCA-1core&quot;, &quot;fastGLMPCA-28core&quot;
+)
+
+final_loglik &lt;- c(
+  glmpca_fisher$lik[25],
+  glmpca_sgd$lik[1100],
+  fastGLMPCA_1core$progress$loglik[26],
+  fastGLMPCA_28core$progress$loglik[23]
+)
+
+loglik_df &lt;- data.frame(
+  algorithm = algorithm,
+  final_loglik = format(final_loglik, scientific = TRUE)
+)
+
+knitr::kable(loglik_df)</code></pre>
+<table>
+<thead>
+<tr class="header">
+<th align="left">algorithm</th>
+<th align="left">final_loglik</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">glmpca-fisher</td>
+<td align="left">-4.026791e+07</td>
+</tr>
+<tr class="even">
+<td align="left">glmpca-sgd</td>
+<td align="left">-3.851829e+07</td>
+</tr>
+<tr class="odd">
+<td align="left">fastGLMPCA-1core</td>
+<td align="left">-3.852176e+07</td>
+</tr>
+<tr class="even">
+<td align="left">fastGLMPCA-28core</td>
+<td align="left">-3.853514e+07</td>
+</tr>
+</tbody>
+</table>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
@@ -756,25 +903,24 @@ attached base packages:
 [1] stats     graphics  grDevices utils     datasets  methods   base     
 
 other attached packages:
-[1] dplyr_1.1.1     ggplot2_3.4.2   workflowr_1.7.0
+[1] dplyr_1.1.1   ggplot2_3.4.2
 
 loaded via a namespace (and not attached):
  [1] tidyselect_1.2.0  xfun_0.38         bslib_0.4.2       lattice_0.20-45  
  [5] colorspace_2.1-0  vctrs_0.6.1       generics_0.1.3    htmltools_0.5.5  
  [9] yaml_2.3.7        utf8_1.2.3        rlang_1.1.0       jquerylib_0.1.4  
-[13] later_1.3.0       pillar_1.9.0      withr_2.5.0       glue_1.6.2       
+[13] later_1.3.0       pillar_1.9.0      glue_1.6.2        withr_2.5.0      
 [17] lifecycle_1.0.3   stringr_1.5.0     munsell_0.5.0     gtable_0.3.3     
-[21] evaluate_0.20     labeling_0.4.2    knitr_1.42        callr_3.7.3      
-[25] tzdb_0.3.0        fastmap_1.1.1     httpuv_1.6.9      ps_1.7.4         
-[29] fansi_1.0.4       highr_0.10        Rcpp_1.0.10       readr_2.1.4      
-[33] promises_1.2.0.1  scales_1.2.1      cachem_1.0.7      float_0.3-1      
-[37] jsonlite_1.8.4    farver_2.1.1      fs_1.6.1          hms_1.1.3        
-[41] digest_0.6.31     stringi_1.7.12    processx_3.8.0    getPass_0.2-2    
-[45] rprojroot_2.0.3   grid_4.2.2        cli_3.6.1         tools_4.2.2      
-[49] magrittr_2.0.3    sass_0.4.5        tibble_3.2.1      whisker_0.4.1    
-[53] pkgconfig_2.0.3   MASS_7.3-58.3     Matrix_1.5-3      glmpca_0.2.0.9000
-[57] rmarkdown_2.21    httr_1.4.5        rstudioapi_0.14   R6_2.5.1         
-[61] git2r_0.31.0      compiler_4.2.2   </code></pre>
+[21] workflowr_1.7.0   evaluate_0.20     labeling_0.4.2    knitr_1.42       
+[25] tzdb_0.3.0        fastmap_1.1.1     httpuv_1.6.9      fansi_1.0.4      
+[29] highr_0.10        Rcpp_1.0.10       readr_2.1.4       promises_1.2.0.1 
+[33] scales_1.2.1      cachem_1.0.7      float_0.3-1       jsonlite_1.8.4   
+[37] farver_2.1.1      fs_1.6.1          hms_1.1.3         digest_0.6.31    
+[41] stringi_1.7.12    rprojroot_2.0.3   grid_4.2.2        cli_3.6.1        
+[45] tools_4.2.2       magrittr_2.0.3    sass_0.4.5        tibble_3.2.1     
+[49] whisker_0.4.1     pkgconfig_2.0.3   MASS_7.3-58.3     Matrix_1.5-3     
+[53] glmpca_0.2.0.9000 rmarkdown_2.21    rstudioapi_0.14   R6_2.5.1         
+[57] git2r_0.31.0      compiler_4.2.2   </code></pre>
 </div>
 </div>
 
