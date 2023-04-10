@@ -32,6 +32,8 @@
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
 <link href="site_libs/highlightjs-9.12.0/textmate.css" rel="stylesheet" />
 <script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+<link href="site_libs/font-awesome-6.2.1/css/all.min.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-6.2.1/css/v4-shims.min.css" rel="stylesheet" />
 
 <link rel="icon" href="https://github.com/workflowr/workflowr-assets/raw/main/img/reproducible.png">
 <!-- Add a small amount of space between sections. -->
@@ -263,7 +265,13 @@ $(document).ready(function () {
 </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
-        
+        <li>
+  <a href="https://github.com/eweine/fastGLMCA_experiments_v3">
+    <span class="fab fa-github"></span>
+     
+    Source code
+  </a>
+</li>
       </ul>
     </div><!--/.nav-collapse -->
   </div><!--/.container -->
@@ -281,7 +289,7 @@ $(document).ready(function () {
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-report" data-toggle="collapse" data-target="#workflowr-report">
 <span class="glyphicon glyphicon-list" aria-hidden="true"></span>
-workflowr <span class="glyphicon glyphicon-ok text-success"
+workflowr <span class="glyphicon glyphicon-exclamation-sign text-danger"
 aria-hidden="true"></span>
 </button>
 </p>
@@ -292,8 +300,8 @@ aria-hidden="true"></span>
 </li>
 <li>
 <a data-toggle="tab" href="#checks"> Checks <span
-class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span>
-</a>
+class="glyphicon glyphicon-exclamation-sign text-danger"
+aria-hidden="true"></span> </a>
 </li>
 <li>
 <a data-toggle="tab" href="#versions">Past versions</a>
@@ -306,9 +314,9 @@ class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span>
 </p>
 <p>
 <strong>Checks:</strong> <span
-class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 2
+class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 1
 <span class="glyphicon glyphicon-exclamation-sign text-danger"
-aria-hidden="true"></span> 0
+aria-hidden="true"></span> 1
 </p>
 <p>
 <strong>Knit directory:</strong> <code>fastGLMCA_experiments_v3/</code>
@@ -331,31 +339,36 @@ versions</em> tab lists the development history.
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguptodate">
-<span class="glyphicon glyphicon-ok text-success"
-aria-hidden="true"></span> <strong>R Markdown file:</strong> up-to-date
-</a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguncommittedchanges">
+<span class="glyphicon glyphicon-exclamation-sign text-danger"
+aria-hidden="true"></span> <strong>R Markdown file:</strong> uncommitted
+changes </a>
 </p>
 </div>
-<div id="strongRMarkdownfilestronguptodate"
+<div id="strongRMarkdownfilestronguncommittedchanges"
 class="panel-collapse collapse">
 <div class="panel-body">
-<p>Great! Since the R Markdown file has been committed to the Git
-repository, you know the exact version of the code that produced these
-results.</p>
+<p>The R Markdown file has unstaged changes. To know which version of
+the R Markdown file created these results, you’ll want to first commit
+it to the Git repo. If you’re still working on the analysis, you can
+ignore this warning. When you’re finished, you can run
+<code>wflow_publish</code> to commit the R Markdown file and build the
+HTML.</p>
 </div>
 </div>
 </div>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongbc78956">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomeweinefastGLMCAexperimentsv3tree7513fb0a180b37f9af3e383478b8751ca964b439targetblank7513fb0a">
 <span class="glyphicon glyphicon-ok text-success"
-aria-hidden="true"></span> <strong>Repository version:</strong> bc78956
+aria-hidden="true"></span> <strong>Repository version:</strong>
+<a href="https://github.com/eweine/fastGLMCA_experiments_v3/tree/7513fb0a180b37f9af3e383478b8751ca964b439" target="_blank">7513fb0</a>
 </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongbc78956"
+<div
+id="strongRepositoryversionstrongahrefhttpsgithubcomeweinefastGLMCAexperimentsv3tree7513fb0a180b37f9af3e383478b8751ca964b439targetblank7513fb0a"
 class="panel-collapse collapse">
 <div class="panel-body">
 <p>
@@ -364,7 +377,8 @@ and connecting the code version to the results is critical for
 reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version bc78956.
+The results in this page were generated with repository version
+<a href="https://github.com/eweine/fastGLMCA_experiments_v3/tree/7513fb0a180b37f9af3e383478b8751ca964b439" target="_blank">7513fb0</a>.
 See the <em>Past versions</em> tab to see a history of the changes made
 to the R Markdown and HTML files.
 </p>
@@ -378,7 +392,19 @@ depends on. Below is the status of the Git repository when the results
 were generated:
 </p>
 <pre><code>
-working directory clean
+Untracked files:
+    Untracked:  analysis/droplets.Rmd
+    Untracked:  data/droplets_fastGLMPCA_fit_28core.rds
+    Untracked:  data/droplets_fastGLMPCA_fit_warmup_1core.rds
+    Untracked:  data/droplets_glmpca_fisher_fit_log_lik_long.rds
+    Untracked:  data/droplets_glmpca_sgd_fit_log_lik_long.rds
+    Untracked:  data/pbmc_68k_fastGLMPCA_fit_no_warmup.rds
+    Untracked:  data/pbmc_68k_fastGLMPCA_fit_no_warmup_1core.rds
+    Untracked:  data/pbmc_glmpca_sgd_fit_log_long.rds
+
+Unstaged changes:
+    Modified:   analysis/index.Rmd
+
 </code></pre>
 <p>
 Note that any generated files, e.g. HTML, png, CSS, etc., are not
@@ -424,10 +450,27 @@ Message
 <tbody>
 <tr>
 <td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/eweine/fastGLMCA_experiments_v3/3e7bbefa740102c0e06fcb844dc1f55481877e9f/docs/index.html" target="_blank">3e7bbef</a>
+</td>
+<td>
+Eric Weine
+</td>
+<td>
+2023-04-10
+</td>
+<td>
+Build site.
+</td>
+</tr>
+<tr>
+<td>
 Rmd
 </td>
 <td>
-bc78956
+<a href="https://github.com/eweine/fastGLMCA_experiments_v3/blob/bc78956363d8551cae0bc805955744fb6cd537e4/analysis/index.Rmd" target="_blank">bc78956</a>
 </td>
 <td>
 Eric Weine
@@ -446,7 +489,11 @@ Start workflowr project.
 </div>
 </div>
 </div>
-<p>Welcome to my research website.</p>
+<div id="experiments" class="section level2">
+<h2>Experiments</h2>
+<p><a href="droplets.html">Comparison of model fits on droplets
+data</a></p>
+</div>
 
 
 <!-- Adjust MathJax settings so that all math formulae are shown using
