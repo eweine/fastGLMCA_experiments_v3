@@ -1,0 +1,192 @@
+---
+title: "Droplets Five Factors"
+author: "Eric Weine"
+date: "2023-04-12"
+output: workflowr::wflow_html
+editor_options:
+  chunk_output_type: console
+---
+
+## Introduction
+
+Here, I set out to test the run-times of `glmpca` and `fastGLMPCA` when fitting five factor models on the trachea droplet dataset prepared by Peter for his fastTopics work. 
+
+## Model Fitting
+
+First, I train the `fastGLMPCA` with only 1-core. In this case, I am including "warmup" steps, which can make fast progress on the first few iterations of training a glmpca model. (I'm now thinking that perhaps this is not ultimately helping the algorithm):
+
+```{r, eval=FALSE}
+load("/project2/mstephens/pcarbo/git/fastTopics-experiments/data/droplet.RData")
+
+data <- as.matrix(counts)
+
+fit0 <- plash::init_glmpca(
+  Y = data, K = 4, fit_col_size_factor = TRUE, fit_row_intercept = TRUE
+)
+
+set.seed(1)
+
+library(tictoc)
+
+tic()
+fit <- plash::fit_glmpca(
+  Y = data, 
+  fit0 = fit0, 
+  algorithm = "ccd", 
+  link = "log",
+  control = list(line_search = TRUE, num_iter = 3), 
+  warmup = TRUE,
+  max_iter = 100,
+  tol = .Machine$double.eps
+)
+toc()
+```
+
+For training the model with 28 cores, I skip the warmup, but otherwise follow the same procedure.
+
+```{r, eval=FALSE}
+fit0 <- plash::init_glmpca(
+  Y = data, K = 4, fit_col_size_factor = TRUE, fit_row_intercept = TRUE
+)
+
+set.seed(1)
+
+library(tictoc)
+
+tic()
+fit <- plash::fit_glmpca(
+  Y = data, 
+  fit0 = fit0, 
+  algorithm = "ccd", 
+  link = "log",
+  control = list(line_search = TRUE, num_iter = 3), 
+  warmup = FALSE,
+  max_iter = 100,
+  tol = .Machine$double.eps
+)
+toc()
+```
+
+Now, for glmpca, I experimented with two different settings. (1) Fisher scoring and (2) avagrad optimization with stochastic gradients.
+
+First, I fit the model with fisher scoring as follows:
+
+```{r, eval=FALSE}
+library(glmpca)
+tic()
+fit <- glmpca(
+  Y = counts, 
+  L = 4, 
+  optimizer = "fisher", 
+  ctl = list(
+    verbose = TRUE, maxIter = 150, minIter = 5, tol = .Machine$double.eps
+  )
+)
+toc()
+```
+
+Then, I fit the glmpca model with stochastic gradient descent:
+
+```{r, eval=FALSE}
+library(glmpca)
+tic()
+fit <- glmpca(
+  Y = counts, 
+  L = 4, 
+  minibatch = "stochastic", 
+  ctl = list(verbose = TRUE, maxIter = 750, tol = .Machine$double.eps)
+)
+toc()
+```
+
+As a note, `glmpca` does not calculate likelihoods in the original implementation of the package. I added a likelihood calculation into the training, which can be reproduced by installing glmpca via my fork `eweine/glmpca`. 
+
+## Analysis
+
+First, we load in the fitting models that were run on midway.
+
+```{r}
+fastGLMPCA_28core <- readr::read_rds(
+  "data/droplets_fastGLMPCA_fit_28core_five_factor.rds"
+)
+
+fastGLMPCA_1core <- readr::read_rds(
+  "data/droplets_fastGLMPCA_fit_warmup_1core_five_factor.rds"
+)
+
+glmpca_sgd <- readr::read_rds(
+  "data/droplets_glmpca_sgd_five_factor.rds"
+)
+
+glmpca_fisher <- readr::read_rds(
+  "data/droplets_glmpca_fisher_five_factor.rds"
+)
+```
+
+```{r}
+loglik_vec <- c()
+algo_vec <- c()
+time_vec <- c()
+
+loglik_vec <- c(loglik_vec, glmpca_fisher$lik)
+algo_vec <- c(algo_vec, rep("glmpca-fisher", length(glmpca_fisher$lik)))
+time_vec <- c(time_vec, seq(0, 11689.768 / 60, length.out = length(glmpca_fisher$lik)))
+
+loglik_vec <- c(loglik_vec, glmpca_sgd$lik)
+algo_vec <- c(algo_vec, rep("glmpca-sgd", length(glmpca_sgd$lik)))
+time_vec <- c(time_vec, seq(0, 11815.492 / 60, length.out = length(glmpca_sgd$lik)))
+
+loglik_vec <- c(loglik_vec, fastGLMPCA_1core$progress$loglik)
+algo_vec <- c(algo_vec, rep("fastGLMPCA-1core", length(fastGLMPCA_1core$progress$loglik)))
+time_vec <- c(time_vec, cumsum(fastGLMPCA_1core$progress$time) / 60)
+
+loglik_vec <- c(loglik_vec, fastGLMPCA_28core$progress$loglik)
+algo_vec <- c(algo_vec, rep("fastGLMPCA-28core", length(fastGLMPCA_28core$progress$loglik)))
+time_vec <- c(time_vec, cumsum(fastGLMPCA_28core$progress$time) / 60)
+
+droplet_time_df <- data.frame(
+  loglik = loglik_vec,
+  algo = algo_vec,
+  time = time_vec
+)
+
+library(ggplot2)
+library(dplyr)
+
+droplet_time_df <- droplet_time_df %>%
+  mutate(dist_from_best = abs(loglik - max(loglik_vec)))
+
+ggplot(data = droplet_time_df) +
+  geom_point(aes(x = time, y = dist_from_best, color = algo)) +
+  geom_line(aes(x = time, y = dist_from_best, color = algo)) +
+  ylab("Distance from Best Log-likelihood") +
+  xlab("Time (m)") +
+  ggtitle("Trachea Droplet Dataset, K = 5") +
+  ylim(0, 16500000)
+```
+
+Note that for the fisher scoring it appears that the algorithm starts at a better log-likelihood. However, this is just because the algorithm goes to a very poor solution in the first few steps, so I have excluded the points from the graph.
+
+Below is a table of the final log-likelihoods from the solutions.
+
+```{r}
+algorithm <- c(
+  "glmpca-fisher", "glmpca-sgd", "fastGLMPCA-1core", "fastGLMPCA-28core"
+)
+
+final_loglik <- c(
+  glmpca_fisher$lik[150],
+  glmpca_sgd$lik[750],
+  fastGLMPCA_1core$progress$loglik[101],
+  fastGLMPCA_28core$progress$loglik[101]
+)
+
+loglik_df <- data.frame(
+  algorithm = algorithm,
+  final_loglik = format(final_loglik, scientific = TRUE)
+)
+
+knitr::kable(loglik_df)
+```
+
+I believe this indicates that I should probably no longer be performing the "warmup" steps in the `fastGLMPCA-1core` model.
