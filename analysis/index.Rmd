@@ -10,3 +10,5 @@ editor_options:
 
 ## Experiments
 [Comparison of model fits on droplets data](droplets.html)
+
+[Comparison of model fits on droplets data with 5 factors](droplets_five_factors.html)
